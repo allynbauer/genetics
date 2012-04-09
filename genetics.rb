@@ -1,6 +1,8 @@
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 require 'voodoo.rb'
+require 'factor.rb'
 require 'character.rb'
+require 'trait.rb'
 require 'pp'
 
 
@@ -13,7 +15,7 @@ class Genetics
     loop do 
       count += 1
       newObj = obj.clone.mutate
-
+      puts newObj.evolutionaryUtilityMeasurement
       #puts "#{newObj} > #{obj}"
       if newObj.evolutionaryUtilityMeasurement > obj.evolutionaryUtilityMeasurement
         obj = newObj
@@ -34,5 +36,3 @@ class Genetics
     end
   end
 end
-
-Genetics.new.run

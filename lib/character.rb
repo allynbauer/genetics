@@ -1,11 +1,15 @@
 include Comparable
 
 class Character
-  attr_reader :isWinning, :extraWinning
+  def self.traits=(traits)
+    @@traits = traits
+  end
 
-  def initialize(isWinning = false, extraWinning = false)
-    @isWinning = isWinning
-    @extraWinning = extraWinning
+  attr_reader :traits
+
+  def initialize(traits = nil)
+    traits = @@traits if traits.nil?
+    @traits = traits
   end
 
   def self.seed!
@@ -13,27 +17,21 @@ class Character
   end
 
   def evolutionaryUtilityMeasurement
-    Factor.weight(2) do |f|
-      f.boolean(@isWinning)
-      f.boolean(@extraWinning)
-    end
+    Factor.weigh(@traits)
   end
 
   def mutate
-    if 1.percentChance
-      @isWinning = true
-    end
-    if 1.percentChance
-      @extraWinning = true
+    @traits.each do |trait|
+      trait.mutate
     end
     self
   end
 
   def clone
-    return Character.new(@isWinning, extraWinning)
+    return Character.new(@traits)
   end
 
   def to_s
-    "#{@isWinning} && #{@extraWinning}"
+    "Character: " + @traits.collect { |t| "#{t}}" }.join(", ")
   end
 end
