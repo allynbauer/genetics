@@ -1,8 +1,8 @@
 require './genetics.rb'
-traits = []
 
+traits = []
 traits << BooleanTrait.new("helpfulGeneSequenceA", 1, false)
 traits << BooleanTrait.new("ImmunityToHorribleDisease", 1, false)
+Organism.traits = traits
 
-Character.traits = traits
-Genetics.new.run
+Genetics.new(:max_run => 10_000_000).run

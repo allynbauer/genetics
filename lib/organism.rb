@@ -1,6 +1,6 @@
 include Comparable
 
-class Character
+class Organism
   def self.traits=(traits)
     @@traits = traits
   end
@@ -16,7 +16,7 @@ class Character
     return self.new
   end
 
-  def evolutionaryUtilityMeasurement
+  def fitness
     Factor.weigh(@traits)
   end
 
@@ -28,10 +28,10 @@ class Character
   end
 
   def clone
-    return Character.new(@traits)
+    return self.class.new(Marshal.load(Marshal.dump(@traits)))
   end
 
   def to_s
-    "Character: " + @traits.collect { |t| "#{t}}" }.join(", ")
+    "#{self.class} fitness:#{self.fitness} traits: " + @traits.collect { |t| "#{t}}" }.join(", ")
   end
 end

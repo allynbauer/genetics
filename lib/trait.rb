@@ -27,7 +27,7 @@ class BooleanTrait < Trait
 
   def mutate
     if @chance.percentChance
-      @value = true
+      @value = !@value
     end
   end
 

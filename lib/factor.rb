@@ -8,7 +8,7 @@ class Factor
   end
 
   def boolean(b)
-    @value += (1.0 / @weight) * (b ? 1 : -1)
+    @value += (1.0 / @weight) * (b ? 1 : 0)
   end
 
   def self.weight(weight)
