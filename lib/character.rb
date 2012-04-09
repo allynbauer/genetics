@@ -1,7 +1,7 @@
 include Comparable
 
 class Character
-  attr_reader :isWinning
+  attr_reader :isWinning, :extraWinning
 
   def initialize(isWinning = false, extraWinning = false)
     @isWinning = isWinning
@@ -30,7 +30,7 @@ class Character
   end
 
   def clone
-    return Character.new(@isWinning)
+    return Character.new(@isWinning, extraWinning)
   end
 
   def to_s
