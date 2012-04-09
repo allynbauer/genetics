@@ -1,12 +1,22 @@
 require 'pp'
 
 class Factor
-  def self.weight=(weight)
-    @@weight = weight
+
+  attr_reader :weight, :value
+
+  def initialize(weight)
+    @weight = weight
+    @value = 0
   end
 
-  def self.boolean(b)
-    b ? 0.5 : -0.5
+  def boolean(b)
+    @value += (1.0 / @weight) * (b ? 1 : -1)
+  end
+
+  def self.weight(weight)
+    factor = self.new(weight)
+    yield(factor)
+    factor.value
   end
 end
 

@@ -13,18 +13,17 @@ class Character
   end
 
   def evolutionaryUtilityMeasurement
-    Factor.weight = 2
-    factor = 0
-    factor += Factor.boolean(@isWinning)
-    factor += Factor.boolean(@extraWinning)
-    factor
+    Factor.weight(2) do |f|
+      f.boolean(@isWinning)
+      f.boolean(@extraWinning)
+    end
   end
 
   def mutate
-    if 0.1.percentChance
+    if 1.percentChance
       @isWinning = true
     end
-    if 0.01.percentChance
+    if 1.percentChance
       @extraWinning = true
     end
     self
