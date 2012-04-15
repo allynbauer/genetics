@@ -1,16 +1,41 @@
 require './genetics.rb'
 
+class Color
+  attr_reader :name
+  def initialize(name)
+    @name = name
+  end
+  
+  def to_s
+    "<Color #{@name}"
+  end
+  
+  Red = Color.new("Red")
+  Orange = Color.new("Orange")
+  Yellow = Color.new("Yellow")
+  Green = Color.new("Green")
+  Blue = Color.new("Blue")
+  Purple = Color.new("Purple")
+  White = Color.new("White")
+  Pink = Color.new("Pink")
+  Any = [Pink, Red, Orange, Yellow, Green, Blue, Purple, White]
+  
+  def self.random
+    Any[rand(Any.length)]
+  end
+end
+
 class Size
   attr_reader :width, :height
   
-  def initialize(:params = {})
+  def initialize(params = {})
     @width = params[:width]
     @height = params[:height]
     
-    size = params[:size]
-    unless size.nil?
-      @width = size
-      @height = size
+    side = params[:side]
+    unless side.nil?
+      @width = side
+      @height = side
     end
   end
 end
@@ -76,18 +101,16 @@ class GardenTrait < NilTrait
 end
 
 plants = []
-plants << Plant.new("Astlbe", Color::Pink)
-plants << Plant.new("Lily of the Valley", Color::White)
-plants << Plant.new("Rose", Color::Any)
-plants << Plant.new("Zinnia", Color::Any)
-plants << Plant.new("Hydrangea", [Color::Pink, Color::White])
-plants << Plant.new("Coreopsis", Color::Yellow)
-
+plants << Plant.new("Astlbe", Color::Pink, "shade", Size.new(:side => 0.6))
+plants << Plant.new("Lily of the Valley", Color::White, "shade", Size.new(:side => 0.3))
+plants << Plant.new("Rose", Color::Any, "sun", Size.new(:side => 1.0))
+plants << Plant.new("Zinnia", Color::Any, "sun", Size.new(:side => 0.5))
+plants << Plant.new("Hydrangea", [Color::Pink, Color::White], "part shade", Size.new(:side => 0.6))
+plants << Plant.new("Coreopsis", Color::Yellow, "sun", Size.new(:side => 1.0))
 
 patch_traits = []
 patch_traits << PatchTrait
 
-garden_size = Size.new(:width => 10.0, :height => 10.0)
-Organism.traits = [] << GardenTrait.new("Garden", 100, garden_size, patch_traits)
+Organism.traits = [] << GardenTrait.new("Garden", 100, Size.new(:width => 10.0, :height => 10.0), patch_traits)
 
 Genetics.new(:max_run => 10_000_000).run

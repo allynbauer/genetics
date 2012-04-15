@@ -3,6 +3,7 @@ class BooleanTrait < NilTrait
   attr_reader :boolean_value
   
   def initialize(name, chance, boolean_value)
+    super(name, chance)
     @boolean_value = boolean_value
   end
   
