@@ -27,6 +27,8 @@ class Genetics
         lastReplacementAtCount = count
       elsif newObj.fitness == obj.fitness
         # todo: add to objs and have it random pick
+      elsif newObj.fitness < obj.fitness
+        #puts "Regression. #{obj}"
       end
 
       if newObj.fitness === 1
