@@ -1,6 +1,5 @@
 $:.unshift(File.join(File.dirname(__FILE__), 'lib'))
 require 'voodoo.rb'
-require 'factor.rb'
 require 'organism.rb'
 require 'trait.rb'
 require 'pp'

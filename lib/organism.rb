@@ -17,13 +17,11 @@ class Organism
   end
 
   def fitness
-    Factor.weigh(@traits)
+    NilTrait.evalulate(@traits)
   end
 
   def mutate
-    @traits.each do |trait|
-      trait.mutate
-    end
+    NilTrait.mutate!(@traits)
     self
   end
 

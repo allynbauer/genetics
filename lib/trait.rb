@@ -1,34 +1,38 @@
-class Trait
-  attr_reader :name, :chance, :value
+class NilTrait
+  class << self
+    def mutate!(traits)
+      traits.each do |trait|
+        if block_given?
+          context = yield(trait)
+        end
+        trait.mutate!
+      end
+      traits
+    end
+  
+    def evalulate(traits)
+      factors = traits.collect do |trait|
+        trait.factor
+      end
+      factors.inject(0.0) { |sum, num| sum + num } / traits.size
+    end
+  end
+  
+  attr_reader :name, :chance
 
-  def initialize(name, chance, value)
+  def initialize(name = "NilTrait", chance = 0.0)
     @name = name
     @chance = chance
-    @value = value
   end
 
   def to_s
-    "<Trait:#{name} #{chance}% value=#{value}>"
+    "<#{self.class}:#{name} #{chance}%>"
   end
 
-  def applyFactor(f)
-    raise "implement"
+  def factor
+    0.0
   end
 
-  def mutate
-    raise "implement"
+  def mutate!
   end
-end
-
-class BooleanTrait < Trait
-  def applyFactor(f)
-    f.boolean(self.value)
-  end
-
-  def mutate
-    if @chance.percentChance
-      @value = !@value
-    end
-  end
-
 end
